@@ -1,12 +1,16 @@
 // Vercel serverless function: proxies OpenWeatherMap so the API key stays on the server.
-export default async function handler(req, res) {
+// The apiKey argument is only passed by the local dev server (see vite.config.js).
+export default async function handler(
+    req,
+    res,
+    apiKey = process.env.WEATHER_API_KEY
+) {
     const { lat, lon } = req.query;
 
     if (!lat || !lon) {
         return res.status(400).json({ message: "lat and lon are required" });
     }
 
-    const apiKey = process.env.WEATHER_API_KEY;
     if (!apiKey) {
         return res
             .status(500)

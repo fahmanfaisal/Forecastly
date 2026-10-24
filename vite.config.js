@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import weatherHandler from './api/weather.js'
 
 // Serves the Vercel /api/weather function during `npm run dev`
-function devApi() {
+function devApi(apiKey) {
   return {
     name: 'dev-api',
     configureServer(server) {
@@ -19,7 +19,7 @@ function devApi() {
           res.setHeader('Content-Type', 'application/json')
           res.end(JSON.stringify(body))
         }
-        weatherHandler(req, res)
+        weatherHandler(req, res, apiKey)
       })
     },
   }
@@ -28,9 +28,8 @@ function devApi() {
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  process.env.WEATHER_API_KEY ??= env.WEATHER_API_KEY
 
   return {
-    plugins: [react(), devApi()],
+    plugins: [react(), devApi(env.WEATHER_API_KEY)],
   }
 })
