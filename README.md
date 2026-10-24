@@ -60,14 +60,20 @@ The app runs at `http://localhost:5173`.
 Create a `.env` file in the project root:
 
 ```env
-VITE_WEATHER_API_KEY=your_openweathermap_api_key
+WEATHER_API_KEY=your_openweathermap_api_key
 ```
 
 > **Notes**
-> - Don't add quotes or a trailing semicolon. Vite reads the value literally.
+> - Don't add quotes or a trailing semicolon. The value is read literally.
 > - Restart the dev server after you change `.env`.
 > - New OpenWeatherMap keys can take up to a couple of hours to start working. Until then, requests return `401 Unauthorized`.
-> - Any variable prefixed with `VITE_` is included in the client bundle. Never commit `.env`; it is already listed in `.gitignore`.
+> - The key is used only on the server (`api/weather.js`) and never sent to the browser. Never commit `.env`; it is already listed in `.gitignore`.
+
+### Deploying to Vercel
+
+1. Import the repository into Vercel. It detects Vite automatically.
+2. Under **Settings → Environment Variables**, add `WEATHER_API_KEY` for the environments you deploy to.
+3. Deploy. Vercel serves `api/weather.js` as a serverless function at `/api/weather`.
 
 ## Available Scripts
 
@@ -82,6 +88,8 @@ VITE_WEATHER_API_KEY=your_openweathermap_api_key
 
 ```
 weatherDashboard/
+├── api/
+│   └── weather.js              # Serverless proxy to OpenWeatherMap (keeps the API key private)
 ├── public/                     # Static files served as-is
 ├── src/
 │   ├── assets/                 # Icons and background images
@@ -106,7 +114,7 @@ weatherDashboard/
 
 1. `LocationProvider` holds the selected city. It starts empty.
 2. `useWeather` (inside `WeatherProvider`) watches the selected location:
-   - If a city is selected, it fetches weather for that city's coordinates.
+   - If a city is selected, it fetches weather for that city's coordinates from `/api/weather`, which adds the API key on the server and forwards the request to OpenWeatherMap.
    - Otherwise it asks the browser for the user's current position.
    - Requests that are no longer needed are cancelled with an `AbortController`.
 3. `FavouriteProvider` keeps the favourites list in sync with `localStorage` through the `useLocalStorage` hook.
