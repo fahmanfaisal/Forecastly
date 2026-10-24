@@ -5,8 +5,31 @@ A responsive weather dashboard built with **React**, **Vite** and **Tailwind CSS
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white)
+![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?logo=vercel&logoColor=white)
+
+### 🔗 [Live Demo → forecastly-wine.vercel.app](https://forecastly-wine.vercel.app/)
+
+![Weather Dashboard showing current weather in London](docs/screenshots/desktop-home.jpg)
 
 ---
+
+## Screenshots
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/desktop-search.jpg" alt="Searching for New York" /></td>
+    <td width="50%"><img src="docs/screenshots/desktop-favourites.jpg" alt="Favourite locations dropdown" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Search a city</b></td>
+    <td align="center"><b>Favourite locations</b></td>
+  </tr>
+</table>
+
+<p align="center">
+  <img src="docs/screenshots/mobile.jpg" alt="Mobile view" width="300" /><br />
+  <b>Responsive on mobile</b>
+</p>
 
 ## Features
 
@@ -90,6 +113,7 @@ WEATHER_API_KEY=your_openweathermap_api_key
 weatherDashboard/
 ├── api/
 │   └── weather.js              # Serverless proxy to OpenWeatherMap (keeps the API key private)
+├── docs/screenshots/           # Images used in this README
 ├── public/                     # Static files served as-is
 ├── src/
 │   ├── assets/                 # Icons and background images
